@@ -1,12 +1,12 @@
 <?php
 
-namespace DevMaster10\AESEncrypt\Database\Query;
+namespace redsd\AESEncrypt\Database\Query;
 
 use Illuminate\Database\Query\Builder as BuilderCore;
 
 class BuilderEncrypt extends BuilderCore
 {
-    
+
     protected $fillableEncrypt = null;
 
     protected $fillableColumns = null;
@@ -27,7 +27,7 @@ class BuilderEncrypt extends BuilderCore
         if (is_null($original)) {
             $this->columns = $columns;
         }
-        
+
         $results = $this->processor->processSelect($this, $this->runSelect());
 
         $this->columns = $original;
@@ -44,7 +44,7 @@ class BuilderEncrypt extends BuilderCore
     public function setfillableEncrypt($fillableEncrypt)
     {
         $this->fillableEncrypt = $fillableEncrypt;
-        
+
         return $this;
     }
 
@@ -67,12 +67,12 @@ class BuilderEncrypt extends BuilderCore
     public function setfillableColumns($fillableColumns)
     {
         $this->fillableColumns = $fillableColumns;
-        
+
         return $this;
     }
 
     /**
-     * Return fillable columns 
+     * Return fillable columns
      *
      * @param \Illuminate\Support\Collection
      */

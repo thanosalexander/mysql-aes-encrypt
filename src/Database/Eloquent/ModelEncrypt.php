@@ -1,9 +1,10 @@
 <?php
 
-namespace DevMaster10\AESEncrypt\Database\Eloquent;
+namespace redsd\AESEncrypt\Database\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
-use DevMaster10\AESEncrypt\Database\Query\BuilderEncrypt as QueryBuilder;
+use Illuminate\Support\Facades\DB;
+use redsd\AESEncrypt\Database\Query\BuilderEncrypt as QueryBuilder;
 
 abstract class ModelEncrypt extends Model
 {
@@ -24,35 +25,53 @@ abstract class ModelEncrypt extends Model
     {
         $this->bootIfNotBooted();
 
+        $this->initializeTraits();
+
         $this->syncOriginal();
 
         $this->fill($attributes);
+
+        $this->setSessionVariables();
     }
+
+    public function setSessionVariables()
+    {
+        static $mysql_session_set;
+        if (!isset($mysql_session_set)) {
+            $key = env('APP_AESENCRYPT_KEY');
+            $mode= env('APP_AESENCRYPT_MODE');
+            DB::statement("SET @@SESSION.block_encryption_mode = '{$mode}'");
+            DB::statement(sprintf("SET @AESKEY = '%s'", $key));
+            $mysql_session_set = true;
+        }
+    }
+
 
     /**
      * Get a new query builder that doesn't have any global scopes.
      *
-     * @return \DevMaster10\AESEncrypt\Database\Eloquent\BuilderEloquentEncrypt|static
+     * @return \redsd\AESEncrypt\Database\Eloquent\BuilderEloquentEncrypt|static
      */
     public function newQueryWithoutScopes()
     {
         $builder = $this->newEloquentBuilder($this->newBaseQueryBuilder());
+
 
         // Once we have the query builders, we will set the model instances so the
         // builder can easily access any information it may need from the model
         // while it is constructing and executing various queries against it.
 
         return $builder->setModel($this)
-                    ->setfillableColumns($this->fillable)
+                    //->setfillableColumns($this->fillable)
                     ->with($this->with)
                     ->withCount($this->withCount);
     }
-    
+
     /**
      * Create a new Eloquent query builder for the model.
      *
-     * @param  \DevMaster10\AESEncrypt\Database\Query\BuilderEncrypt   $query
-     * @return \DevMaster10\AESEncrypt\Database\Eloquent\BuilderEloquentEncrypt|static
+     * @param  \redsd\AESEncrypt\Database\Query\BuilderEncrypt   $query
+     * @return \redsd\AESEncrypt\Database\Eloquent\BuilderEloquentEncrypt|static
      */
     public function newEloquentBuilder($query)
     {
@@ -62,7 +81,7 @@ abstract class ModelEncrypt extends Model
     /**
      * Get a new query builder instance for the connection.
      *
-     * @return \DevMaster10\AESEncrypt\Database\Query\BuilderEncrypt 
+     * @return \redsd\AESEncrypt\Database\Query\BuilderEncrypt
      */
     protected function newBaseQueryBuilder()
     {

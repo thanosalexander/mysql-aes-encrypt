@@ -1,8 +1,8 @@
 <?php
 
-namespace DevMaster10\AESEncrypt\Database;
+namespace redsd\AESEncrypt\Database;
 
-use DevMaster10\AESEncrypt\Database\Connectors\ConnectionFactoryEncrypt;
+use redsd\AESEncrypt\Database\Connectors\ConnectionFactoryEncrypt;
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Database\DatabaseServiceProvider;
 

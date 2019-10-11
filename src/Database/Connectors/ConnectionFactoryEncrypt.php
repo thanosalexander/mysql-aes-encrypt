@@ -1,12 +1,12 @@
 <?php
 
-namespace DevMaster10\AESEncrypt\Database\Connectors;
+namespace redsd\AESEncrypt\Database\Connectors;
 
 use Illuminate\Database\Connectors\ConnectionFactory;
 
 use InvalidArgumentException;
 use Illuminate\Database\Connection;
-use DevMaster10\AESEncrypt\Database\MySqlConnectionEncrypt;
+use redsd\AESEncrypt\Database\MySqlConnectionEncrypt;
 use Illuminate\Database\SQLiteConnection;
 use Illuminate\Database\PostgresConnection;
 use Illuminate\Database\SqlServerConnection;

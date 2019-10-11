@@ -1,26 +1,31 @@
 <?php
 
-namespace DevMaster10\AESEncrypt\Database\Query\Grammars;
+namespace redsd\AESEncrypt\Database\Query\Grammars;
 
 use Illuminate\Support\Str;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Query\JsonExpression;
-use DevMaster10\AESEncrypt\Database\GrammarEncrypt;
+use redsd\AESEncrypt\Database\GrammarEncrypt;
 use InvalidArgumentException;
 
 class MySqlGrammarEncrypt extends GrammarEncrypt
 {
 
     protected $AESENCRYPT_KEY;
+    protected $AESENCRYPT_MODE;
 
     public function __construct()
     {
         $this->AESENCRYPT_KEY = env('APP_AESENCRYPT_KEY');
+        $this->AESENCRYPT_MODE = env('APP_AESENCRYPT_MODE', 'aes-256-cbc');
 
         if(empty($this->AESENCRYPT_KEY))
             throw new InvalidArgumentException("Set encryption key in .env file, use this alias APP_AESENCRYPT_KEY");
+
+        if(empty($this->AESENCRYPT_MODE))
+            throw new InvalidArgumentException("Set encryption mode in .env file, use this alias APP_AESENCRYPT_MODE, we recommend using the default: aes-256-cbc");
     }
-    
+
     protected $columnsEncrypt = [];
 
 
@@ -53,11 +58,11 @@ class MySqlGrammarEncrypt extends GrammarEncrypt
     {
         $this->columnsEncrypt = [];
 
-        if($query instanceof \DevMaster10\AESEncrypt\Database\Query\BuilderEncrypt) {
+        if($query instanceof \redsd\AESEncrypt\Database\Query\BuilderEncrypt) {
             $instance = "BuilderEncrypt";
             $this->columnsEncrypt = $query->getfillableEncrypt();
         }
-                
+
         $sql = parent::compileSelect($query);
 
         if ($query->unions) {
@@ -117,7 +122,7 @@ class MySqlGrammarEncrypt extends GrammarEncrypt
     public function compileUpdate(Builder $query, $values)
     {
         $this->columnsEncrypt = [];
-        if($query instanceof \DevMaster10\AESEncrypt\Database\Query\BuilderEncrypt) {
+        if($query instanceof \redsd\AESEncrypt\Database\Query\BuilderEncrypt) {
             $instance = "BuilderEncrypt";
             $this->columnsEncrypt = $query->getfillableEncrypt();
         }
@@ -314,7 +319,7 @@ class MySqlGrammarEncrypt extends GrammarEncrypt
      */
     protected function wrapValueDecrypt($value)
     {
-        return "AES_DECRYPT({$value}, '{$this->AESENCRYPT_KEY}')";
+        return "AES_DECRYPT(SUBSTRING_INDEX({$value}, '.iv.', 1), @AESKEY, SUBSTRING_INDEX({$value}, '.iv.', -1))";
     }
 
     /**
@@ -325,7 +330,8 @@ class MySqlGrammarEncrypt extends GrammarEncrypt
      */
     protected function wrapValueEncrypt($value)
     {
-        return "AES_ENCRYPT({$value}, '{$this->AESENCRYPT_KEY}')";
+        $iv = random_bytes(16);
+        return "CONCAT(AES_ENCRYPT({$value}, @AESKEY, '{$iv}'), '.iv.','{$iv}')";
     }
 
     /**

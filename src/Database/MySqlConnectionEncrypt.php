@@ -1,18 +1,18 @@
 <?php
 
-namespace DevMaster10\AESEncrypt\Database;
+namespace redsd\AESEncrypt\Database;
 
 use Illuminate\Database\MySqlConnection;
 
-use DevMaster10\AESEncrypt\Database\Schema\MySqlBuilderEncrypt;
-use DevMaster10\AESEncrypt\Database\Query\Grammars\MySqlGrammarEncrypt as QueryGrammar;
+use redsd\AESEncrypt\Database\Schema\MySqlBuilderEncrypt;
+use redsd\AESEncrypt\Database\Query\Grammars\MySqlGrammarEncrypt as QueryGrammar;
 
 class MySqlConnectionEncrypt extends MySqlConnection
 {
     /**
      * Get the default query grammar instance.
      *
-     * @return \DevMaster10\AESEncrypt\Database\Query\Grammars\MySqlGrammarEncrypt
+     * @return \redsd\AESEncrypt\Database\Query\Grammars\MySqlGrammarEncrypt
      */
     protected function getDefaultQueryGrammar()
     {

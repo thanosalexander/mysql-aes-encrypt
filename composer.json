@@ -1,14 +1,14 @@
 {
-    "name": "devmaster10/aesencrypt",
+    "name": "redsd/aesencrypt",
     "type": "library",
     "description": "Laravel MySql AES Encrypt/Decrypt",
     "keywords": ["laravel","mysql", "aes", "encrypt"],
-    "homepage": "https://github.com/Seldaek/monolog",
+    "homepage": "https://github.com/redsd/mysql-aes-encrypt",
     "license": "Apache-2.0",
     "authors": [
         {
-            "name": "Marcelo Barros",
-            "email": "marcelofbarros@outlook.com"
+            "name": "Eric van Eldik",
+            "email": "ericvaneldik@gmail.com"
         }
     ],
     "require": {
@@ -19,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "DevMaster10\\AESEncrypt\\": "src"
+            "redsd\\AESEncrypt\\": "src"
         },
         "files": [
             "src/helpers.php"
@@ -28,7 +28,7 @@
     "extra": {
         "branch-alias": {
             "dev-master": "1.0.x-dev"
-            
+
         }
     },
     "config": {

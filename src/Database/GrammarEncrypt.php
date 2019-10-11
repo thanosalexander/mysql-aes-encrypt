@@ -1,6 +1,6 @@
 <?php
 
-namespace DevMaster10\AESEncrypt\Database;
+namespace redsd\AESEncrypt\Database;
 
 use Illuminate\Database\Query\Builder;
 
@@ -398,7 +398,7 @@ class GrammarEncrypt extends \Illuminate\Database\Query\Grammars\Grammar
 
         return $having['boolean'].' '.$column.' '.$having['operator'].' '.$parameter;
     }
-    
+
     /**
      * Compile the query orders to an array.
      *
@@ -440,7 +440,7 @@ class GrammarEncrypt extends \Illuminate\Database\Query\Grammars\Grammar
     public function compileInsert(Builder $query, array $values)
     {
         $this->columnsEncrypt = [];
-        if($query instanceof \DevMaster10\AESEncrypt\Database\Query\BuilderEncrypt) {
+        if($query instanceof \redsd\AESEncrypt\Database\Query\BuilderEncrypt) {
             $instance = "BuilderEncrypt";
             $this->columnsEncrypt = $query->getfillableEncrypt();
         }
@@ -493,9 +493,14 @@ class GrammarEncrypt extends \Illuminate\Database\Query\Grammars\Grammar
     {
         $columnize = [];
 
+        $columns = $this->addColumnsToWildcard($columns, $columnsEncrypt);
+
         foreach ($columns as $key => $value) {
              $value = $this->wrap($value, false, $columnsEncrypt);
-            if($forceAlias && !empty($columnsEncrypt) && strpos(strtolower($value), ' as ') === false)
+            if($forceAlias
+                && !empty($columnsEncrypt)
+                && strpos(strtolower($value), ' as ') === false
+                && strpos(strtolower($value), '*') === false)
             {
                 preg_match("/\`.*?\`/", $value, $alias);
                 $value = $value . ' as ' . $alias[0];
@@ -503,7 +508,22 @@ class GrammarEncrypt extends \Illuminate\Database\Query\Grammars\Grammar
 
             $columnize[] = $value;
         }
+
         return implode(', ', $columnize);
+    }
+
+    /**
+     * if columns only contain a wildcard we add the encrypted columns to decrypt
+     * @param array $columns
+     * @param array $columnsEncrypt
+     *
+     * @return array
+     */
+    public function addColumnsToWildcard(array $columns, array $columnsEncrypt){
+        if(!empty($columns) && strpos(strtolower($columns[0]), '*') !== false){
+            $columns = array_merge($columns, $columnsEncrypt);
+        }
+        return $columns;
     }
 
     /**
