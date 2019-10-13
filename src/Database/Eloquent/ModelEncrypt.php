@@ -25,7 +25,7 @@ abstract class ModelEncrypt extends Model
     {
         $this->bootIfNotBooted();
 
-        $this->initializeTraits();
+        //$this->initializeTraits();
 
         $this->syncOriginal();
 
