@@ -26,10 +26,10 @@ You can perform the operations "=>, <',' between ',' LIKE ' in encrypted columns
 
 ```php
 For laravel 6.x:
-$ composer require redsd/aesencrypt:dev-master
+$ composer require redsd/aesencrypt:6.0.x-dev
 
 For laravel 5.x:
-$ composer require redsd/aesencrypt:dev-master
+$ composer require redsd/aesencrypt:5.0.x-dev
 ```
 ## 2.Configure provider
 You'll need to add to add a service provider in config/app.php:
