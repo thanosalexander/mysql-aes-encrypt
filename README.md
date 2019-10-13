@@ -32,7 +32,7 @@ For laravel 5.x:
 $ composer require redsd/aesencrypt:5.0.x-dev
 ```
 ## 2.Configure provider
-You'll need to add to add a service provider in config/app.php:
+You'll need to add to add a service provider if you are using Laravel 5.4 or lower or if the encryption is not working, add to following in config/app.php:
 
 ```php
 'providers' => array(
