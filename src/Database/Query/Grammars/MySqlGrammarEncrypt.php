@@ -330,7 +330,7 @@ class MySqlGrammarEncrypt extends GrammarEncrypt
      */
     protected function wrapValueEncrypt($value)
     {
-        $iv = random_bytes(16);
+        $iv = bin2hex(random_bytes(16));
         return "CONCAT(AES_ENCRYPT({$value}, @AESKEY, '{$iv}'), '.iv.','{$iv}')";
     }
 

@@ -24,7 +24,7 @@ if (!function_exists('AESEncrypt\mysqlencrypt')) {
      */
     function mysqlencrypt($column, $alias = null)
     {
-        $iv = random_bytes(16);
+        $iv = bin2hex(random_bytes(16));
         return "CONCAT(AES_ENCRYPT({$column}, '" . env('APP_AESENCRYPT_KEY') ."', '{$iv}'), '.iv.','{$iv}') as `" . ($alias ? $alias : $column) . "`";
     }
 }
