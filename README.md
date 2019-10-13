@@ -7,7 +7,7 @@
 * [Decrypt your data in MySQL](#decrypt-your-data-in-mySQL)
 
 
-# Laravel 5.5 & 6.x MySql AES Encrypt/Decrypt
+# Laravel 6.x & 5.x MySql AES Encrypt/Decrypt
 Based on https://github.com/devmaster10/mysql-aes-encrypt
 
 Improvements:
@@ -25,15 +25,18 @@ You can perform the operations "=>, <',' between ',' LIKE ' in encrypted columns
 ## 1.Install the package via Composer:
 
 ```php
+For laravel 6.x:
+$ composer require redsd/aesencrypt:dev-master
+
+For laravel 5.x:
 $ composer require redsd/aesencrypt:dev-master
 ```
 ## 2.Configure provider
-If you're on Laravel 5.4 or earlier, you'll need to add and comment line on config/app.php:
+You'll need to add to add a service provider in config/app.php:
 
 ```php
 'providers' => array(
-    // Illuminate\Database\DatabaseServiceProvider::class,
-    redsd\\AESEncrypt\\Database\\DatabaseServiceProviderEncrypt::class
+    redsd\AESEncrypt\Database\DatabaseServiceProviderEncrypt::class
 )
 ```
 ## Updating Your Eloquent Models
@@ -45,15 +48,8 @@ namespace App\Models;
 
 use redsd\AESEncrypt\Database\Eloquent\ModelEncrypt;
 
-class Persons extends ModelEncrypt
+class Person extends ModelEncrypt
 {    
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'tb_persons';
-
     /**
      * The attributes that are encrypted.
      *
@@ -63,15 +59,6 @@ class Persons extends ModelEncrypt
         'name'
     ];
 
-     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-                'name',
-                'description',
-                ];
 }
 ```
 
@@ -79,7 +66,7 @@ class Persons extends ModelEncrypt
 It adds new features to Schema which you can use in your migrations:
 
 ```php
-    Schema::create('tb_persons', function (Blueprint $table) {
+    Schema::create('persons', function (Blueprint $table) {
         // here you do all columns supported by the schema builder
         $table->increments('id')->unsigned;
         $table->string('description', 250);
@@ -88,7 +75,7 @@ It adds new features to Schema which you can use in your migrations:
     });
     
     // once the table is created use a raw query to ALTER it and add the BLOB, MEDIUMBLOB or LONGBLOB
-    DB::statement("ALTER TABLE tb_persons ADD name MEDIUMBLOB after id");  
+    DB::statement("ALTER TABLE persons ADD name MEDIUMBLOB after id");  
 ```
 
 
@@ -109,7 +96,7 @@ Note: If the database is allready encrypted, make sure to decrypt it before exec
 
 **Always make a back-up before making changes to your data**
 
-The easiest and more secure way to is to use this MySQL function when updating your records:
+The easiest and more secure way to use this, is to use this MySQL function when updating your records:
 ```sql
 CREATE FUNCTION `aes_encrypt_string` (col blob, aeskey char(255))
 RETURNS blob
@@ -119,7 +106,7 @@ SET @iv = RANDOM_BYTES(16);
 RETURN CONCAT(AES_ENCRYPT(col, aeskey, @iv), ".iv.",@iv);
 END
 ```
-Afterwards update your records like so:
+After adding the MySQL function, update your records like so:
 
 ```sql
 SET @@SESSION.block_encryption_mode = 'aes-256-cbc';
