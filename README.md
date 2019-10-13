@@ -8,14 +8,15 @@
 
 
 # Laravel 5.5 & 6.x MySql AES Encrypt/Decrypt
-Based on https://github.com/devmaster10/mysql-aes-encrypt.
+Based on https://github.com/devmaster10/mysql-aes-encrypt
+
 Improvements:
 - Added improved security by using an unique IV for each encrypted field.
-- Added support for multiple encryption methods including a the more secure aes-256-cbc
-- Added use of session variables to prevent the encryption key from being outputted when an sql error occures.
+- Added support for multiple encryption methods including: aes-256-cbc
+- Added use of MySQL session variables to prevent the encryption key from being outputted when an sql error occures.
 - Added laravel 6 support
 
-Laravel 5.5 & 6.x Database Encryption in mysql side, use native mysql function AES_DECRYPT and AES_ENCRYPT<br>
+Laravel 5.x & 6.x Database Encryption in mysql side, use native mysql function AES_DECRYPT and AES_ENCRYPT<br>
 Auto encrypt and decrypt signed fields/columns in your Model<br>
 Can use all functions of Eloquent/Model<br>
 You can perform the operations "=>, <',' between ',' LIKE ' in encrypted columns<br>
@@ -42,7 +43,7 @@ Your models that have encrypted columns, should extend from ModelEncrypt:
 ```php
 namespace App\Models;
 
-use redsd\AESEncrypt\Database\Eloquent;
+use redsd\AESEncrypt\Database\Eloquent\ModelEncrypt;
 
 class Persons extends ModelEncrypt
 {    
