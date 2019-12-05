@@ -32,7 +32,7 @@
         },
         "laravel": {
             "providers": [
-                "redsd\\AESEncrypt\\Database\\DatabaseServiceProviderEncrypt"
+                "redsd\\AESEncrypt\\AesEncryptServiceProvider"
             ]
         }
     },
