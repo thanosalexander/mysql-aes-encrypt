@@ -89,6 +89,12 @@ APP_AESENCRYPT_MODE=aes-256-cbc
 ```
 See https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_block_encryption_mode for all available encryption methods.
 
+To publish the config file and view run the following command
+```bash
+php artisan vendor:publish --provider="redsd\AESEncrypt\AesEncryptServiceProvider"
+```
+
+
 ## Encrypt existing data
 In order to use this package with existing data, you must first encrypt all existing columns you want to use.
 
