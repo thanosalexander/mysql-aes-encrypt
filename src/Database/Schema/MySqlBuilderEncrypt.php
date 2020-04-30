@@ -1,6 +1,6 @@
 <?php
 
-namespace redsd\AESEncrypt\Database\Schema;
+namespace mrzainulabideen\AESEncrypt\Database\Schema;
 
 use Illuminate\Database\Schema\MySqlBuilder;
 

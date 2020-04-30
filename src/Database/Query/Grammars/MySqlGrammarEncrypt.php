@@ -1,11 +1,11 @@
 <?php
 
-namespace redsd\AESEncrypt\Database\Query\Grammars;
+namespace mrzainulabideen\AESEncrypt\Database\Query\Grammars;
 
 use Illuminate\Support\Str;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Query\JsonExpression;
-use redsd\AESEncrypt\Database\GrammarEncrypt;
+use mrzainulabideen\AESEncrypt\Database\GrammarEncrypt;
 use InvalidArgumentException;
 
 class MySqlGrammarEncrypt extends GrammarEncrypt
@@ -58,7 +58,7 @@ class MySqlGrammarEncrypt extends GrammarEncrypt
     {
         $this->columnsEncrypt = [];
 
-        if($query instanceof \redsd\AESEncrypt\Database\Query\BuilderEncrypt) {
+        if($query instanceof \mrzainulabideen\AESEncrypt\Database\Query\BuilderEncrypt) {
             $instance = "BuilderEncrypt";
             $this->columnsEncrypt = $query->getfillableEncrypt();
         }
@@ -122,7 +122,7 @@ class MySqlGrammarEncrypt extends GrammarEncrypt
     public function compileUpdate(Builder $query, $values)
     {
         $this->columnsEncrypt = [];
-        if($query instanceof \redsd\AESEncrypt\Database\Query\BuilderEncrypt) {
+        if($query instanceof \mrzainulabideen\AESEncrypt\Database\Query\BuilderEncrypt) {
             $instance = "BuilderEncrypt";
             $this->columnsEncrypt = $query->getfillableEncrypt();
         }

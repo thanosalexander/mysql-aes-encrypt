@@ -28,7 +28,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "redsd\\AESEncrypt\\AesEncryptServiceProvider"
+                "mrzainulabideen\\AESEncrypt\\AesEncryptServiceProvider"
             ]
         }
     },

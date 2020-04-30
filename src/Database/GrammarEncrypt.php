@@ -1,6 +1,6 @@
 <?php
 
-namespace redsd\AESEncrypt\Database;
+namespace mrzainulabideen\AESEncrypt\Database;
 
 use Illuminate\Database\Query\Builder;
 
@@ -440,7 +440,7 @@ class GrammarEncrypt extends \Illuminate\Database\Query\Grammars\Grammar
     public function compileInsert(Builder $query, array $values)
     {
         $this->columnsEncrypt = [];
-        if($query instanceof \redsd\AESEncrypt\Database\Query\BuilderEncrypt) {
+        if($query instanceof \mrzainulabideen\AESEncrypt\Database\Query\BuilderEncrypt) {
             $instance = "BuilderEncrypt";
             $this->columnsEncrypt = $query->getfillableEncrypt();
         }

@@ -1,10 +1,10 @@
 <?php
 
-namespace redsd\AESEncrypt\Database\Eloquent;
+namespace mrzainulabideen\AESEncrypt\Database\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-use redsd\AESEncrypt\Database\Query\BuilderEncrypt as QueryBuilder;
+use mrzainulabideen\AESEncrypt\Database\Query\BuilderEncrypt as QueryBuilder;
 
 abstract class ModelEncrypt extends Model
 {
@@ -50,7 +50,7 @@ abstract class ModelEncrypt extends Model
     /**
      * Get a new query builder that doesn't have any global scopes.
      *
-     * @return \redsd\AESEncrypt\Database\Eloquent\BuilderEloquentEncrypt|static
+     * @return \mrzainulabideen\AESEncrypt\Database\Eloquent\BuilderEloquentEncrypt|static
      */
     public function newQueryWithoutScopes()
     {
@@ -70,8 +70,8 @@ abstract class ModelEncrypt extends Model
     /**
      * Create a new Eloquent query builder for the model.
      *
-     * @param  \redsd\AESEncrypt\Database\Query\BuilderEncrypt   $query
-     * @return \redsd\AESEncrypt\Database\Eloquent\BuilderEloquentEncrypt|static
+     * @param  \mrzainulabideen\AESEncrypt\Database\Query\BuilderEncrypt   $query
+     * @return \mrzainulabideen\AESEncrypt\Database\Eloquent\BuilderEloquentEncrypt|static
      */
     public function newEloquentBuilder($query)
     {
@@ -81,7 +81,7 @@ abstract class ModelEncrypt extends Model
     /**
      * Get a new query builder instance for the connection.
      *
-     * @return \redsd\AESEncrypt\Database\Query\BuilderEncrypt
+     * @return \mrzainulabideen\AESEncrypt\Database\Query\BuilderEncrypt
      */
     protected function newBaseQueryBuilder()
     {

@@ -27,20 +27,20 @@ You can perform the operations "=>, <',' between ',' LIKE ' in encrypted columns
 
 ```php
 For laravel 7.x:
-$ composer require redsd/aesencrypt:7.0.x-dev
+$ composer require mrzainulabideen/aesencrypt:7.0.x-dev
 
 For laravel 6.x:
-$ composer require redsd/aesencrypt:6.0.x-dev
+$ composer require mrzainulabideen/aesencrypt:6.0.x-dev
 
 For laravel 5.x:
-$ composer require redsd/aesencrypt:5.0.x-dev
+$ composer require mrzainulabideen/aesencrypt:5.0.x-dev
 ```
 ## 2.Configure provider
 You'll need to add to add a service provider if you are using Laravel 5.4 or lower or if the encryption is not working, add to following in config/app.php:
 
 ```php
 'providers' => array(
-    redsd\AESEncrypt\Database\DatabaseServiceProviderEncrypt::class
+    mrzainulabideen\AESEncrypt\Database\DatabaseServiceProviderEncrypt::class
 )
 ```
 ## Updating Your Eloquent Models
@@ -50,7 +50,7 @@ Your models that have encrypted columns, should extend from ModelEncrypt:
 ```php
 namespace App\Models;
 
-use redsd\AESEncrypt\Database\Eloquent\ModelEncrypt;
+use mrzainulabideen\AESEncrypt\Database\Eloquent\ModelEncrypt;
 
 class Person extends ModelEncrypt
 {    
@@ -95,7 +95,7 @@ See https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_
 
 To publish the config file and view run the following command
 ```bash
-php artisan vendor:publish --provider="redsd\AESEncrypt\AesEncryptServiceProvider"
+php artisan vendor:publish --provider="mrzainulabideen\AESEncrypt\AesEncryptServiceProvider"
 ```
 
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace redsd\AESEncrypt;
+namespace mrzainulabideen\AESEncrypt;
 
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Support\ServiceProvider;
-use redsd\AESEncrypt\Database\Connectors\ConnectionFactoryEncrypt;
+use mrzainulabideen\AESEncrypt\Database\Connectors\ConnectionFactoryEncrypt;
 
 
 class AesEncryptServiceProvider extends ServiceProvider
