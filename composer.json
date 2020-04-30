@@ -26,10 +26,6 @@
         ]
     },
     "extra": {
-        "branch-alias": {
-            "dev-master": "1.0.x"
-
-        },
         "laravel": {
             "providers": [
                 "redsd\\AESEncrypt\\AesEncryptServiceProvider"
