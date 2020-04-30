@@ -7,7 +7,7 @@
 * [Decrypt your data in MySQL](#decrypt-your-data-in-mySQL)
 
 
-# Laravel 6.x & 5.x MySql AES Encrypt/Decrypt
+# Laravel 7.x, 6.x & 5.x MySql AES Encrypt/Decrypt
 Based on https://github.com/devmaster10/mysql-aes-encrypt
 
 Improvements:
@@ -15,8 +15,9 @@ Improvements:
 - Added support for multiple encryption methods including: aes-256-cbc
 - Added use of MySQL session variables to prevent the encryption key from being outputted when an sql error occures.
 - Added laravel 6 support
+- Added laravel 7 support (By me)
 
-Laravel 5.x & 6.x Database Encryption in mysql side, use native mysql function AES_DECRYPT and AES_ENCRYPT<br>
+Laravel 5.x, 6.x & 7.x Database Encryption in mysql side, use native mysql function AES_DECRYPT and AES_ENCRYPT<br>
 Auto encrypt and decrypt signed fields/columns in your Model<br>
 Can use all functions of Eloquent/Model<br>
 You can perform the operations "=>, <',' between ',' LIKE ' in encrypted columns<br>
@@ -25,6 +26,9 @@ You can perform the operations "=>, <',' between ',' LIKE ' in encrypted columns
 ## 1.Install the package via Composer:
 
 ```php
+For laravel 7.x:
+$ composer require redsd/aesencrypt:7.0.x-dev
+
 For laravel 6.x:
 $ composer require redsd/aesencrypt:6.0.x-dev
 
