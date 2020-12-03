@@ -237,8 +237,8 @@ class MySqlGrammarEncrypt extends GrammarEncrypt
         $where = is_array($query->wheres) ? $this->compileWheres($query) : '';
 
         return isset($query->joins)
-                    ? $this->compileDeleteWithJoins($query, $table, $where)
-                    : $this->compileDeleteWithoutJoins($query, $table, $where);
+            ? $this->compileDeleteWithJoins($query, $table, $where)
+            : $this->compileDeleteWithoutJoins($query, $table, $where);
     }
 
     /**
@@ -280,7 +280,7 @@ class MySqlGrammarEncrypt extends GrammarEncrypt
         $joins = ' '.$this->compileJoins($query, $query->joins);
 
         $alias = strpos(strtolower($table), ' as ') !== false
-                ? explode(' as ', $table)[1] : $table;
+            ? explode(' as ', $table)[1] : $table;
 
         return trim("delete {$alias} from {$table}{$joins} {$where}");
     }
@@ -319,7 +319,7 @@ class MySqlGrammarEncrypt extends GrammarEncrypt
      */
     protected function wrapValueDecrypt($value)
     {
-        return "AES_DECRYPT(SUBSTRING_INDEX({$value}, '.iv.', 1), @AESKEY, SUBSTRING_INDEX({$value}, '.iv.', -1))";
+        return "AES_DECRYPT(SUBSTRING_INDEX({$value}, '.iv.', 1), @AESKEY)";
     }
 
     /**
@@ -331,7 +331,7 @@ class MySqlGrammarEncrypt extends GrammarEncrypt
     protected function wrapValueEncrypt($value)
     {
         $iv = bin2hex(random_bytes(16));
-        return "CONCAT(AES_ENCRYPT({$value}, @AESKEY, '{$iv}'), '.iv.','{$iv}')";
+        return "CONCAT(AES_ENCRYPT({$value}, @AESKEY), '.iv.','{$iv}')";
     }
 
     /**
