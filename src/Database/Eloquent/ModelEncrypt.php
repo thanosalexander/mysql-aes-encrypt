@@ -39,8 +39,6 @@ abstract class ModelEncrypt extends Model
         static $mysql_session_set;
         if (!isset($mysql_session_set)) {
             $key = env('APP_AESENCRYPT_KEY');
-            $mode= env('APP_AESENCRYPT_MODE');
-            DB::statement("SET @@SESSION.block_encryption_mode = '{$mode}'");
             DB::statement(sprintf("SET @AESKEY = '%s'", $key));
             $mysql_session_set = true;
         }
