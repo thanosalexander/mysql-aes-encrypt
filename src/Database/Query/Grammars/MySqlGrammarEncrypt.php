@@ -16,8 +16,8 @@ class MySqlGrammarEncrypt extends GrammarEncrypt
 
     public function __construct()
     {
-        $this->AESENCRYPT_KEY = env('APP_AESENCRYPT_KEY');
-        $this->AESENCRYPT_MODE = env('APP_AESENCRYPT_MODE', 'aes-256-cbc');
+         $this->AESENCRYPT_KEY = config('aesEncrypt.key');
+        $this->AESENCRYPT_MODE = config('aesEncrypt.mode');
 
         if(empty($this->AESENCRYPT_KEY))
             throw new InvalidArgumentException("Set encryption key in .env file, use this alias APP_AESENCRYPT_KEY");
